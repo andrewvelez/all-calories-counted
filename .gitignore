@@ -25,4 +25,4 @@ dist-ssr
 
 # Tauri / Rust build output
 /src-tauri/target/
-/gen/schemas
+/src-tauri/gen/schemas
