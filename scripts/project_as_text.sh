@@ -16,8 +16,14 @@ main() {
         "${root}/bunfig.toml"
         "${root}/package.json"
         "${root}/tsconfig.json"
-        "${root}"/src/*
+        "${root}"/src/*.*
         "${root}"/web/*
+        "${root}"/src-tauri/capabilities/*
+        "${root}"/src-tauri/src/*
+        "${root}"/src-tauri/build.rs
+        "${root}"/src-tauri/Cargo.lock
+        "${root}"/src-tauri/Cargo.toml
+        "${root}"/src-tauri/tauri.conf.json
     )
 
     {
