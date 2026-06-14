@@ -1,7 +1,15 @@
-# Tauri + Vanilla
+# Bun PWA Starter
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Javascript.
+A minimal Progressive Web App starter using Bun, plain HTML, CSS, and JavaScript.
 
-## Recommended IDE Setup
+## Requirements
 
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+Install Bun:
+
+```sh
+curl -fsSL https://bun.sh/install | bash
+
+Clone or use Bun to create this starter:
+
+```sh
+bun create bun-pwa-starter my_app
