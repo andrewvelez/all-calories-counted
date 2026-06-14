@@ -9,7 +9,4 @@ Install Bun:
 ```sh
 curl -fsSL https://bun.sh/install | bash
 
-Clone or use Bun to create this starter:
-
-```sh
-bun create bun-pwa-starter my_app
+Then clone this project.

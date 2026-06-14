@@ -1,10 +1,13 @@
-const CACHE_NAME = "bun-pwa-starter-v1";
+const CACHE_NAME = "all-calories-counted-v1";
 const APP_SHELL = [
   "/",
-  "/main.js",
-  "/styles.css",
-  "/manifest.webmanifest",
-  "/icons/icon.svg",
+  "/src/index.js",
+  "/public/index.html",
+  "/public/main.js",
+  "/public/sw.js",
+  "/public/styles.css",
+  "/public/manifest.webmanifest",
+  "/public/icons/icon.svg",
 ];
 
 self.addEventListener("install", (event) => {

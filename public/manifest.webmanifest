@@ -1,9 +1,9 @@
 {
-  "name": "Bun PWA Starter",
-  "short_name": "Bun PWA",
-  "description": "A minimal Bun-powered Progressive Web App starter.",
+  "name": "All Calories Counted",
+  "short_name": "all-calories-counted",
+  "description": "A minimal Bun-powered Progressive Web App starter calorie tracker.",
   "id": "/",
-  "start_url": "/",
+  "start_url": "/public/index.html",
   "scope": "/",
   "display": "standalone",
   "background_color": "#f8fafc",
