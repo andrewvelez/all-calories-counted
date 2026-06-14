@@ -1,33 +1,75 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#2563eb" />
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
     <title>All Calories Counted</title>
-
-    <link rel="icon" href="/public/icons/icon.svg" />
-    <link rel="manifest" href="/public/manifest.webmanifest" />
-    <link rel="stylesheet" href="/public/styles.css" />
-
-    <script type="module" src="/public/main.js"></script>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="stylesheet" href="/styles.css">
+    <script type="module" src="/app.js"></script>
   </head>
-
   <body>
-    <main class="app">
-      <section class="card">
-        <img class="logo" src="/public/icons/icon.svg" alt="" />
-
+    <main>
+      <header>
         <h1>All Calories Counted</h1>
+        <p><strong id="today-calories">0</strong> calories today</p>
+      </header>
 
-        <p>
-          A minimal Progressive Web App powered by Bun, plain HTML, CSS, and
-          JavaScript.
-        </p>
+      <form id="meal-form">
+        <label>
+          Food
+          <input name="name" required autocomplete="off">
+        </label>
 
-        <p id="status" class="status">Starting app...</p>
+        <label>
+          Eaten at
+          <input id="eaten-at" name="eatenAt" type="datetime-local" required>
+        </label>
+
+        <label>
+          Serving grams
+          <input name="servingGrams" type="number" min="0" step="0.1" value="100">
+        </label>
+
+        <label>
+          Servings
+          <input name="servings" type="number" min="0" step="0.1" value="1" required>
+        </label>
+
+        <label>
+          Calories
+          <input name="calories" type="number" min="0" step="1" required>
+        </label>
+
+        <label>
+          Protein
+          <input name="protein" type="number" min="0" step="0.1" value="0">
+        </label>
+
+        <label>
+          Carbs
+          <input name="carbs" type="number" min="0" step="0.1" value="0">
+        </label>
+
+        <label>
+          Fat
+          <input name="fat" type="number" min="0" step="0.1" value="0">
+        </label>
+
+        <button type="submit">Add food</button>
+      </form>
+
+      <section aria-labelledby="entries-heading">
+        <h2 id="entries-heading">Entries</h2>
+        <ol id="entries"></ol>
       </section>
     </main>
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+      }
+    </script>
   </body>
 </html>

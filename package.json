@@ -2,11 +2,20 @@
   "name": "all-calories-counted",
   "version": "0.1.0",
   "private": true,
-  "description": "A minimal Bun-powered Progressive Web App calorie tracker",
+  "description": "A minimal Bun-powered Progressive Web App calorie counter",
   "type": "module",
   "scripts": {
-    "dev": "bun --watch src/index.js",
-    "start": "bun src/index.js"
+    "dev": "bun --watch src/core.js",
+    "start": "bun src/core.js",
+    "typecheck": "bun x tsc -p tsconfig.json --noEmit",
+    "test": "bun test",
+    "build": "bun ./build.js build",
+    "clean": "bun ./build.js clean"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/node": "latest",
+    "typescript": "latest"
   },
   "license": "MIT"
 }

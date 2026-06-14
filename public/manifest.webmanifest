@@ -1,19 +1,9 @@
 {
   "name": "All Calories Counted",
-  "short_name": "all-calories-counted",
-  "description": "A minimal Bun-powered Progressive Web App starter calorie tracker.",
-  "id": "/",
-  "start_url": "/public/index.html",
-  "scope": "/",
+  "short_name": "Calories",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
-  "theme_color": "#2563eb",
-  "icons": [
-    {
-      "src": "/icons/icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
-    }
-  ]
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": []
 }
