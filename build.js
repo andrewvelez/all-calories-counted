@@ -25,7 +25,7 @@ const scriptCommands = Object.freeze({
  */
 function dev() {
   test();
-  run("bun", ["--watch", ENTRYPOINT]);
+  run("bun", ["--watch", ENTRYPOINT], { ...process.env, APP_ENV: "dev" });
 }
 
 /**
@@ -42,8 +42,8 @@ function errorUsage(commandNames) {
  * @param {string} command
  * @param {string[]} args
  */
-function run(command, args) {
-  const result = spawnSync(command, args, { stdio: "inherit" });
+function run(command, args, env = process.env) {
+  const result = spawnSync(command, args, { env, stdio: "inherit" });
 
   if (result.error) {
     console.error(result.error.message);
