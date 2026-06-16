@@ -28,7 +28,10 @@ export const SCHEMA_VERSION = 1;
  * @property {Record<string, MealEntry>} mealEntries
  */
 
-/** @returns {CalorieState} */
+/**
+ * Create an empty calorie log state.
+ * @returns {CalorieState}
+ */
 export function createState() {
   return {
     version: SCHEMA_VERSION,
@@ -37,14 +40,18 @@ export function createState() {
   };
 }
 
-/** @param {string} prefix */
+/**
+ * Create a namespaced id.
+ * @param {string} prefix
+ * @returns {string}
+ */
 export function createId(prefix) {
   return `${prefix}_${crypto.randomUUID()}`;
 }
 
 /**
- * @param {CalorieState} state
- * @param {Partial<Food> & Pick<Food, "name">} food
+ * Add or replace a normalized food record.
+ * 
  * @returns {CalorieState}
  */
 export function addFood(state, food) {
@@ -68,8 +75,8 @@ export function addFood(state, food) {
 }
 
 /**
- * @param {CalorieState} state
- * @param {Partial<MealEntry> & Pick<MealEntry, "foodId" | "eatenAt">} entry
+ * Add a normalized meal entry that references an existing food.
+ * 
  * @returns {CalorieState}
  */
 export function addMealEntry(state, entry) {
@@ -94,16 +101,20 @@ export function addMealEntry(state, entry) {
 }
 
 /**
+ * Return entries whose eatenAt value starts with the provided YYYY-MM-DD date.
  * @param {CalorieState} state
  * @param {string} date
+ * @returns {MealEntry[]}
  */
 export function entriesForDate(state, date) {
   return Object.values(state.mealEntries).filter((entry) => entry.eatenAt.slice(0, 10) === date);
 }
 
 /**
+ * Total calories for entries on a YYYY-MM-DD date.
  * @param {CalorieState} state
  * @param {string} date
+ * @returns {number}
  */
 export function caloriesForDate(state, date) {
   return entriesForDate(state, date).reduce((total, entry) => {
@@ -117,7 +128,11 @@ export function caloriesForDate(state, date) {
   }, 0);
 }
 
-/** @param {unknown} value */
+/**
+ * Coerce a value to a finite number, using zero when coercion fails.
+ * @param {unknown} value
+ * @returns {number}
+ */
 function numberOrZero(value) {
   const number = Number(value);
 

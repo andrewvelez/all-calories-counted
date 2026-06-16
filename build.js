@@ -1,66 +1,142 @@
 #! /usr/bin/env bun
-// @ts-check
 /**
- * build.js - project commands for All Calories Counted
+ * build.js - package.json script commands
  * by: Andrew Velez 2026
  */
 
-import { $ } from "bun";
-import { mkdir, rm } from "node:fs/promises";
+import { spawnSync } from "node:child_process";
+import { mkdirSync, rmSync } from "node:fs";
 import { parseArgs } from "node:util";
 
 const OUTDIR = "./dist";
 const OUTFILE = `${OUTDIR}/all-calories-counted`;
 const ENTRYPOINT = "./src/core.js";
 
-/** @param {string[]} commandNames */
+const scriptCommands = Object.freeze({
+  BUILD: "build",
+  CLEAN: "clean",
+  DEV: "dev",
+  PROD: "prod",
+  TEST: "test",
+});
+
+/**
+ * Start the app with Bun's watch mode
+ */
+function dev() {
+  test();
+  run("bun", ["--watch", ENTRYPOINT]);
+}
+
+/**
+ * Print usage and exit with an error.
+ * @param {string} commandNames
+ */
 function errorUsage(commandNames) {
-  console.error(`Usage: bun ./build.js <${commandNames.join("|")}>`);
+  console.error(`Usage: bun ./build.js <${commandNames.replaceAll(" ", "|")}>`);
   process.exit(2);
 }
 
-async function clean() {
-  await rm(OUTDIR, { recursive: true, force: true });
+/**
+ * Run a command and exit if it fails.
+ * @param {string} command
+ * @param {string[]} args
+ */
+function run(command, args) {
+  const result = spawnSync(command, args, { stdio: "inherit" });
+
+  if (result.error) {
+    console.error(result.error.message);
+    process.exit(1);
+  }
+
+  if (result.signal) {
+    console.error(`${command} exited with signal ${result.signal}`);
+    process.exit(1);
+  }
+
+  if (result.status !== 0) {
+    process.exit(result.status ?? 1);
+  }
 }
 
+/**
+ * Remove generated output.
+ */
+function clean() {
+  rmSync(OUTDIR, { recursive: true, force: true });
+}
+
+/**
+ * Run the JSDoc/JavaScript typecheck.
+ */
 function typecheck() {
-  return $`bun x tsc -p tsconfig.json --noEmit`;
+  run("bun", ["x", "tsc", "-p", "tsconfig.json", "--noEmit"]);
 }
 
+/**
+ * Run unit tests.
+ */
 function test() {
-  return $`bun test`;
+  typecheck();
+  run("bun", ["test"]);
 }
 
-async function build() {
-  await clean();
-  await typecheck();
-  await test();
-  await mkdir(OUTDIR, { recursive: true });
-  await $`bun build --compile --outfile ${OUTFILE} ${ENTRYPOINT}`;
+/**
+ * Build a standalone Bun executable.
+ */
+function prod() {
+  clean();
+  test();
+  mkdirSync(OUTDIR, { recursive: true });
+  run("bun", ["build", "--compile", "--outfile", OUTFILE, ENTRYPOINT]);
 }
 
-const commandHandlers = Object.freeze({
-  build,
-  clean,
-  test,
-  typecheck,
-});
+const build = dev;
 
-async function main() {
-  const commandNames = Object.keys(commandHandlers);
+/**
+ * Parse and validate the requested command.
+ */
+function parseCommandName() {
+  const commandNames = Object.values(scriptCommands).join(" ");
 
   const { positionals } = parseArgs({
     args: Bun.argv.slice(2),
     allowPositionals: true,
   });
 
-  const commandName = positionals[0];
+  const commandName = positionals[0] ?? "";
 
-  if (typeof commandName !== "string" || !Object.hasOwn(commandHandlers, commandName)) {
+  if (typeof commandName !== "string" || !` ${commandNames} `.includes(` ${commandName} `)) {
     errorUsage(commandNames);
   }
 
-  await commandHandlers[/** @type {keyof typeof commandHandlers} */ (commandName)]();
+  return commandName;
 }
 
-await main();
+/**
+ * Run the selected command.
+ */
+function main() {
+  const commandName = parseCommandName();
+
+  switch (commandName) {
+    case scriptCommands.BUILD:
+      build();
+      break;
+    case scriptCommands.CLEAN:
+      clean();
+      break;
+    case scriptCommands.DEV:
+      dev();
+      break;
+    case scriptCommands.PROD:
+      prod();
+      break;
+    case scriptCommands.TEST:
+      test();
+      break;
+  }
+}
+
+main();

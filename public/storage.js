@@ -10,6 +10,7 @@ const STORAGE_KEY = "all-calories-counted:v1";
  */
 
 /**
+ * Load calorie state from browser-like storage.
  * @param {StorageLike} [storage]
  * @returns {CalorieState}
  */
@@ -35,8 +36,10 @@ export function loadState(storage = localStorage) {
 }
 
 /**
+ * Save calorie state to browser-like storage.
  * @param {CalorieState} state
  * @param {StorageLike} [storage]
+ * @returns {void}
  */
 export function saveState(state, storage = localStorage) {
   storage.setItem(STORAGE_KEY, JSON.stringify(state));

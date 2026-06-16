@@ -1,7 +1,11 @@
 import { expect, test } from "bun:test";
 import { addFood, addMealEntry, caloriesForDate, createState, entriesForDate } from "../public/model.js";
 
-test("addFood stores foods by id", () => {
+/**
+ * Verify that food records are stored in normalized state by id.
+ * @returns {void}
+ */
+function testAddFood() {
   const state = addFood(createState(), {
     id: "food_1",
     name: "Eggs",
@@ -17,18 +21,26 @@ test("addFood stores foods by id", () => {
   expect(food).toBeDefined();
   expect(food?.name).toBe("Eggs");
   expect(food?.calories).toBe(155);
-});
+}
 
-test("addMealEntry rejects unknown foods", () => {
+/**
+ * Verify that entries cannot reference missing foods.
+ * @returns {void}
+ */
+function testUnknownFood() {
   expect(() => addMealEntry(createState(), {
     id: "entry_1",
     foodId: "missing",
     eatenAt: "2026-06-14T12:00",
     servings: 1,
   })).toThrow("Unknown food: missing");
-});
+}
 
-test("caloriesForDate totals entries for one date", () => {
+/**
+ * Verify that calorie totals only include entries on the requested date.
+ * @returns {void}
+ */
+function testCaloriesForDate() {
   let state = addFood(createState(), {
     id: "food_1",
     name: "Rice",
@@ -55,4 +67,8 @@ test("caloriesForDate totals entries for one date", () => {
 
   expect(entriesForDate(state, "2026-06-14")).toHaveLength(1);
   expect(caloriesForDate(state, "2026-06-14")).toBe(260);
-});
+}
+
+test("addFood stores foods by id", testAddFood);
+test("addMealEntry rejects unknown foods", testUnknownFood);
+test("caloriesForDate totals entries for one date", testCaloriesForDate);

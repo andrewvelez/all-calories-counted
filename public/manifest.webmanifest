@@ -1,6 +1,6 @@
 {
   "name": "All Calories Counted",
-  "short_name": "Calories",
+  "short_name": "all-calories-counted",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

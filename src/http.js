@@ -12,6 +12,7 @@ const MIME_TYPES = Object.freeze({
 });
 
 /**
+ * Resolve a request pathname to a file URL inside the public directory.
  * @param {string} pathname
  * @param {URL} [publicDir]
  * @returns {URL | null}
@@ -26,7 +27,11 @@ export function publicPath(pathname, publicDir = PUBLIC_DIR) {
   return path;
 }
 
-/** @param {string} pathname */
+/**
+ * Get the response content type for a public asset pathname.
+ * @param {string} pathname
+ * @returns {string}
+ */
 export function contentType(pathname) {
   const index = pathname.lastIndexOf(".");
   const extension = index === -1 ? "" : pathname.slice(index);
@@ -38,7 +43,11 @@ export function contentType(pathname) {
   return "application/octet-stream";
 }
 
-/** @param {string | URL} url */
+/**
+ * Convert a request URL to the public asset pathname to serve.
+ * @param {string | URL} url
+ * @returns {string}
+ */
 export function publicPathname(url) {
   const { pathname } = new URL(url);
 
