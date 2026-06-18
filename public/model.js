@@ -1,4 +1,7 @@
-// @ts-check
+/**
+ * model.js - contains all models
+ * @auth Andrew Velez 2026
+ */
 
 export const SCHEMA_VERSION = 1;
 
@@ -16,31 +19,6 @@ export function createState() {
 /**
  * Create a namespaced id.
  * @param {string} prefix
- * @returns {string}
- */
-export function createId(prefix) {
-  return `${prefix}_${crypto.randomUUID()}`;
-}
-
-/**
- * Add or replace a normalized food record.
- */
-export function addFood(state, food) {
-  const id = food.id ?? createId("food");
-
-  return {
-    ...state,
-    foods: {
-      ...state.foods,
-      [id]: {
-        id,
-        name: food.name.trim(),
-        servingGrams: numberOrZero(food.servingGrams),
-        calories: numberOrZero(food.calories),
-        protein: numberOrZero(food.protein),
-        carbs: numberOrZero(food.carbs),
-        fat: numberOrZero(food.fat),
-      },
     },
   };
 }
