@@ -1,3 +1,5 @@
+// Executes server-side under Bun's test runner.
+
 import { expect, test } from "bun:test";
 import { contentType, publicPath, publicPathname } from "../src/http.js";
 

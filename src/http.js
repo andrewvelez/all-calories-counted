@@ -1,4 +1,5 @@
 // @ts-check
+// Executes server-side under Bun.
 
 export const PUBLIC_DIR = new URL("../public/", import.meta.url);
 

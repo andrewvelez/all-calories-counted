@@ -1,4 +1,5 @@
 // @ts-check
+// Executes server-side under Bun.
 
 import { contentType, publicPath, publicPathname } from "./http.js";
 

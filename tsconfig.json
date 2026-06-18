@@ -20,6 +20,6 @@
     "noUnusedParameters": false,
     "noPropertyAccessFromIndexSignature": false
   },
-  "include": ["build.js", "src/**/*.js", "public/**/*.js", "tests/**/*.js"],
+  "include": ["build.js", "src/**/*.js", "web/**/*.js", "tests/**/*.js"],
   "exclude": ["dist", "node_modules"]
 }

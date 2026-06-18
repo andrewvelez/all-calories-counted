@@ -1,5 +1,7 @@
+// Executes server-side under Bun's test runner.
+
 import { expect, test } from "bun:test";
-import { createState } from "../public/model.js";
+import { createState } from "../web/model.js";
 
 /**
  * Verify that the empty state shape is available.

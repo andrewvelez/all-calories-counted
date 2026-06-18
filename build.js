@@ -1,4 +1,5 @@
 #! /usr/bin/env bun
+// Executes server-side under Bun as a local build script.
 /**
  * build.js - package.json script commands
  * by: Andrew Velez 2026
@@ -11,6 +12,13 @@ import { parseArgs } from "node:util";
 const OUTDIR = "./dist";
 const OUTFILE = `${OUTDIR}/all-calories-counted`;
 const ENTRYPOINT = "./src/core.js";
+const CLIENT_BUILDS = [
+  { entrypoint: "./web/app.js", outfile: "./public/app.js" },
+  { entrypoint: "./web/main.js", outfile: "./public/main.js" },
+  { entrypoint: "./web/model.js", outfile: "./public/model.js" },
+  { entrypoint: "./web/storage.js", outfile: "./public/storage.js" },
+  { entrypoint: "./web/sw.js", outfile: "./public/sw.js" },
+];
 
 const scriptCommands = Object.freeze({
   BUILD: "build",
@@ -75,9 +83,27 @@ function typecheck() {
 }
 
 /**
+ * Emit browser JavaScript without source-only comments.
+ */
+function buildClient() {
+  for (const clientBuild of CLIENT_BUILDS) {
+    run("bun", [
+      "build",
+      "--target=browser",
+      "--format=esm",
+      `--outfile=${clientBuild.outfile}`,
+      "--no-bundle",
+      "--minify-whitespace",
+      clientBuild.entrypoint,
+    ]);
+  }
+}
+
+/**
  * Run unit tests.
  */
 function test() {
+  buildClient();
   typecheck();
   run("bun", ["test"]);
 }
