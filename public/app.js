@@ -87,8 +87,6 @@ function render() {
 
 /**
  * Sort meal entries from newest to oldest.
- * @param {import("./model.js").MealEntry} a
- * @param {import("./model.js").MealEntry} b
  * @returns {number}
  */
 function compareEntriesByNewestFirst(a, b) {
@@ -97,7 +95,6 @@ function compareEntriesByNewestFirst(a, b) {
 
 /**
  * Create an entry list item.
- * @param {import("./model.js").MealEntry} entry
  * @returns {HTMLLIElement}
  */
 function createEntryItem(entry) {

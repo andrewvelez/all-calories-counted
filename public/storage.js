@@ -5,14 +5,8 @@ import { createState } from "./model.js";
 const STORAGE_KEY = "all-calories-counted:v1";
 
 /**
- * @typedef {import("./model.js").CalorieState} CalorieState
- * @typedef {{ getItem(key: string): string | null, setItem(key: string, value: string): void }} StorageLike
- */
-
-/**
  * Load calorie state from browser-like storage.
- * @param {StorageLike} [storage]
- * @returns {CalorieState}
+ * @param {Storage} [storage]
  */
 export function loadState(storage = localStorage) {
   const saved = storage.getItem(STORAGE_KEY);
@@ -37,8 +31,7 @@ export function loadState(storage = localStorage) {
 
 /**
  * Save calorie state to browser-like storage.
- * @param {CalorieState} state
- * @param {StorageLike} [storage]
+ * @param {Storage} [storage]
  * @returns {void}
  */
 export function saveState(state, storage = localStorage) {

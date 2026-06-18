@@ -1,23 +1,14 @@
-/**
- * Description placeholder
- *
- */
 const status = document.querySelector("#status");
 
 /**
- * Description placeholder
- *
+ * @param {string} message
  */
 function setStatus(message) {
   if (status) {
-    status.textContent = message;
+    status.textContent = message ?? "";
   }
 }
 
-/**
- * Description placeholder
- *
- */
 async function registerServiceWorker() {
   if (!("serviceWorker" in navigator)) {
     setStatus("Service workers are not supported in this browser.");

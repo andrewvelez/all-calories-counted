@@ -3,34 +3,7 @@
 export const SCHEMA_VERSION = 1;
 
 /**
- * @typedef {object} Food
- * @property {string} id
- * @property {string} name
- * @property {number} servingGrams
- * @property {number} calories
- * @property {number} protein
- * @property {number} carbs
- * @property {number} fat
- */
-
-/**
- * @typedef {object} MealEntry
- * @property {string} id
- * @property {string} foodId
- * @property {string} eatenAt
- * @property {number} servings
- */
-
-/**
- * @typedef {object} CalorieState
- * @property {number} version
- * @property {Record<string, Food>} foods
- * @property {Record<string, MealEntry>} mealEntries
- */
-
-/**
  * Create an empty calorie log state.
- * @returns {CalorieState}
  */
 export function createState() {
   return {
@@ -51,8 +24,6 @@ export function createId(prefix) {
 
 /**
  * Add or replace a normalized food record.
- * 
- * @returns {CalorieState}
  */
 export function addFood(state, food) {
   const id = food.id ?? createId("food");
@@ -76,8 +47,6 @@ export function addFood(state, food) {
 
 /**
  * Add a normalized meal entry that references an existing food.
- * 
- * @returns {CalorieState}
  */
 export function addMealEntry(state, entry) {
   if (!state.foods[entry.foodId]) {
@@ -102,9 +71,7 @@ export function addMealEntry(state, entry) {
 
 /**
  * Return entries whose eatenAt value starts with the provided YYYY-MM-DD date.
- * @param {CalorieState} state
  * @param {string} date
- * @returns {MealEntry[]}
  */
 export function entriesForDate(state, date) {
   return Object.values(state.mealEntries).filter((entry) => entry.eatenAt.slice(0, 10) === date);
@@ -112,7 +79,6 @@ export function entriesForDate(state, date) {
 
 /**
  * Total calories for entries on a YYYY-MM-DD date.
- * @param {CalorieState} state
  * @param {string} date
  * @returns {number}
  */

@@ -61,7 +61,7 @@ function handleFetch(event) {
 
 /**
  * Add the application shell to the current cache.
- * 
+ * @param {Cache} cache
  */
 function cacheAppShell(cache) {
   return cache.addAll(APP_SHELL);
@@ -69,17 +69,25 @@ function cacheAppShell(cache) {
 
 /**
  * Delete cache entries that do not match the current cache name.
- * 
  */
 function deleteOldCaches(names) {
   return Promise.all(
-    names.filter((name) => name !== CACHE_NAME).map(deleteCache),
+    names.filter(isOldCacheName).map(deleteCache),
   );
 }
 
 /**
+ * Check whether a cache name is from an older app version.
+ * @param {string} name
+ * @returns {boolean}
+ */
+function isOldCacheName(name) {
+  return name !== CACHE_NAME;
+}
+
+/**
  * Delete one cache by name.
- * 
+ * @param {string} name
  */
 function deleteCache(name) {
   return caches.delete(name);
