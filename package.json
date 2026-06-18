@@ -4,13 +4,6 @@
   "private": true,
   "description": "A minimal progressive web app calorie counter",
   "type": "module",
-  "scripts": {
-    "dev": "bun ./build.js dev",
-    "prod": "bun ./build.js prod",
-    "test": "bun ./build.js test",
-    "build": "bun ./build.js dev",
-    "clean": "bun ./build.js clean"
-  },
   "devDependencies": {
     "@types/bun": "latest",
     "@types/node": "latest",
